@@ -56,12 +56,12 @@ contract FavorCoin {
     require(friendToGroup[msg.sender] != 0);
     require(friendToGroup[_to] != 0);
     require(friendToGroup[msg.sender] == friendToGroup[_to]);
-    require(accounts[msg.sender].favorBalance > 0);
     _giveFavorCoin(msg.sender, _to);
     return accounts[msg.sender].favorBalance;
   }
 
   function _giveFavorCoin(address _from, address _to) private {
+    require(accounts[_from].favorBalance > 0);
     uint friendGroup = friendToGroup[_from];
     accounts[_from].favorBalance--;
     accounts[_to].reputationBalance++;
