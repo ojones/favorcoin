@@ -2,7 +2,7 @@ pragma solidity ^0.4.17;
 
 import "./safemath.sol";
 
-// This is just an experimental work in progres.
+// This is an experimental work in progres.
 // Learn more at: https://collabcoins.com
 
 contract FavorCoin {
