@@ -10,6 +10,28 @@ contract FavorCoin {
   event NewFriend(uint _friendGroup, address _friend);
   event NewFavor(uint _friendGroup, address _from, address _to);
 
+  function accountOf(address _owner) public view returns (FavorAcct) {
+    return accounts[_owner];
+  }
+
+  function friends() public view returns (address[]) {
+    return _friendsOf(msg.sender);
+  }
+
+  function _friendsOf(address _owner) private view returns (address[]) {
+    uint friendGroup = friendToGroup[_owner];
+    return groupToFriends[friendGroup];
+  }
+
+  function groupMembers(uint friendGroup) public view returns (uint) {
+    return groupToFriends[friendGroup].length;
+  }
+
+  modifier groupOwner() {
+    require(ownerToGroup[msg.sender] != 0);
+    _;
+  }
+
   struct FavorAcct {
     bool exists;
     uint friendGroup;
@@ -23,12 +45,13 @@ contract FavorCoin {
   mapping (address => uint) friendToGroup;
   mapping (uint => address[]) groupToFriends;
 
-  function createFriendGroup() public {
+  function createFriendGroup() public returns (uint) {
     groupCount++;
     ownerToGroup[msg.sender] = groupCount;
     friendToGroup[msg.sender] = groupCount;
     _newFavorAcct(msg.sender);
     NewFriendGroup(groupCount, msg.sender);
+    return groupCount;
   }
 
   function addFriend(address _friend) public groupOwner {
@@ -36,11 +59,12 @@ contract FavorCoin {
     uint friendGroup = friendToGroup[msg.sender];
     friendToGroup[_friend] = friendGroup;
     _newFavorAcct(_friend);
-    NewFriend(friendGroup, msg.sender);
+    NewFriend(friendGroup, _friend);
   }
 
   function _newFavorAcct(address _owner) private {
-    if (!accounts[_owner].exists) { revert(); }
+    // if (!accounts[_owner].exists) { revert(); }
+    require(!accounts[_owner].exists);
     uint friendGroup = friendToGroup[_owner];
     uint favorBalance = 1;
     uint reputationBalance = 0;
@@ -61,24 +85,6 @@ contract FavorCoin {
     accounts[_from].favorBalance--;
     accounts[_to].reputationBalance++;
     NewFavor(friendGroup, _from, _to);
-  }
-
-  function balanceOf(address _owner) public view returns (FavorAcct) {
-    return accounts[_owner];
-  }
-
-  function friends() public view returns (address[]) {
-    return _friendsOf(msg.sender);
-  }
-
-  function _friendsOf(address _owner) private view returns (address[]) {
-    uint friendGroup = friendToGroup[_owner];
-    return groupToFriends[friendGroup];
-  }
-
-  modifier groupOwner() {
-    require(ownerToGroup[msg.sender] != 0);
-    _;
   }
 
 }
