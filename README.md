@@ -1,16 +1,30 @@
-## Favor Coin
-This is a work in progres. Favor Coin in not a fungible (ERC-20) or non-fungible token (EIP-721). Instead it is an experiment in social reputation, inside and outside of a friend group. 
+>Smart contracts for reputation assets
 
-## Abstract
-Favor Coin is an experiment to make a platform for social favors supported by blockchain accounting.
+# Favor Coin
+   * [Install](#install)
+   * [Personal Note](#personal-note)
 
-One hypothesis is that favor coins will be most effective at the edges of normal social groups. Where people kinda know each other through someone but not really. Another hypothesis is that favor coins would be great for longterm friendships where the historical reciprocity gets hazy.
+These smart contracts were made to support experiments in reputation accounting. The notion is that we currently have few means for quantifiably accounting for social reputation.
 
-There are several factors to the experiment including transferability and minting limits. Incentive effects are a key phenomenon we wish to observe.
+Put another way, it's hard to measure the most important things in life.
 
-Learn more at: https://collabcoins.com
+# Install
 
-## Test
+Requires truffle to compile and run tests:
 ```
-truffle test
+npm install -g truffle
+npm install
 ```
+
+Run tests:
+```
+truffle test --network develop
+```
+
+# Personal Note
+
+I've been thinking about blockchain transactions differently ever since reading [this book on time](https://www.goodreads.com/book/show/36442813-the-order-of-time). The world is not made up of objects and relationships. Those are abstractions for what are ultimately events.
+
+Digital transactions are bad at representing long term state. They are perfect for events.
+
+Just like time, friendship is a nostalgic blurring of discrete events.
