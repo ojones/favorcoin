@@ -1,5 +1,5 @@
 >Smart contracts for reputation assets
-
+![alt text](favor_coin_saber.png?raw=true "Favor Coin Art")
 # Favor Coin
    * [Install](#install)
    * [Personal Note](#personal-note)
